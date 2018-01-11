@@ -1,0 +1,13 @@
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none;}
+
+.e-list{list-style: none; padding: 0;margin-bottom: 0; max-height: 300px; overflow: auto ;}
+.e-item{ width: 400px; height: 125px; margin: 5px auto; position: relative;}
+.e-item img{display: block;float: left;width: 205px;height: 120px; padding-right: 20px }
+.e-desc{display: block;}
+.e-desc a{color:#424242;}
+.e-desc a:hover{color:#88b04b;}
+.e-subTitle{text-transform: uppercase; font-size: 14px; font-weight: bold;line-height: 20px}
+.e-desc h5{color:#9b9b9b;font-size: 14px; font-weight: normal}
+.e-comment{text-align: right; padding-right: 5px;color:#9b9b9b;}
+.e-min-price{background-color: rgba(0,0,0,0.6); color: #fff;height: 24px;left: 0; bottom: 10px;line-height: 1.8; position: absolute; padding: 0 10px;  }

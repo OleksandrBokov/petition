@@ -1,0 +1,50 @@
+.couch-modal {
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.couch-modal .modal-content {
+    background-color: #fefefe;
+    margin: 90px auto;
+    border: 1px solid #888;
+    width: 600px;
+    outline: 0;
+}
+.couch-modal .modal-body {
+    padding: 15px 20px 15px;
+    position: relative;
+    text-align: center;
+}
+.couch-modal .photo{
+    text-align: center;
+    margin-top: 40px;
+}
+.couch-modal img{
+    width: 170px;
+    height: 170px;
+    border-radius: 170px;
+    border: 1px solid #f0f0f0;
+}
+
+.couch-modal .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.couch-modal .close:hover,
+.couch-modal .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

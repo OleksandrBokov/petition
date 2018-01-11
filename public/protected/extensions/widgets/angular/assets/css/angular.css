@@ -1,0 +1,12 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none;}
+.loader{
+    background-image: url("../img/loading.gif");
+    background-size: 16px;
+    background-repeat: no-repeat;
+    float: left;
+    width:16px;
+    height: 16px;
+    margin-right: 10px;
+    margin-top: 8px;
+
+}

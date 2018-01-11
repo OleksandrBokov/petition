@@ -1,0 +1,12 @@
+span.label-select{
+    top: 2px !important;
+    padding: 0.4em .6em .3em !important;
+    margin-right: 10px;
+}
+.time-select.btn-group .dropdown-menu{
+    max-height: 200px !important;
+}
+
+.time-select.btn-group .dropdown-menu::-webkit-scrollbar {
+    display: none;
+}

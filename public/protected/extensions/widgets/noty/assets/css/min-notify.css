@@ -1,0 +1,9 @@
+[data-notify="container"][class*="alert-pastel-"] > [data-notify="title"] {
+    color: rgb(80, 80, 57);
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+[data-notify="container"][class*="alert-pastel-"] > [data-notify="message"] {
+    font-weight: 400;
+}

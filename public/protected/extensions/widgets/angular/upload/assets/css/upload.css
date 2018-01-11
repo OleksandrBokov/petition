@@ -1,0 +1,18 @@
+.upload-list,
+.picture-list{
+    margin-top: 15px;
+    padding-top: 15px;
+}
+.upload-item{
+    margin-bottom: 15px;
+    padding: 0 5px;
+    position: relative;
+}
+.remove-upload-item{
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+}
+.remove-upload-item i{
+    color:#ff0000;
+}

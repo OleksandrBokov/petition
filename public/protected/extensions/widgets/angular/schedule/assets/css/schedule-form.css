@@ -1,0 +1,27 @@
+#schedule-form table{  table-layout:fixed; }
+#schedule-form table thead tr td,
+#schedule-form table tbody tr td{ padding: 0;}
+#schedule-form table thead tr td div,
+#schedule-form table tbody tr td div{
+    color: #666;
+    text-align: center;
+    overflow: hidden;
+    margin: 1px;
+    cursor: pointer;
+    padding: 4px 0;
+}
+#schedule-form table thead tr td div,
+#schedule-form table tbody tr td:first-child div{ background:#f9f9f9; }
+#schedule-form table tbody tr td:not(:first-child) div{ height:28px }
+#schedule-form .table-hover>tbody>tr:hover {background-color: inherit !important;  }
+#schedule-form table thead tr td div:hover,
+#schedule-form table tbody tr td:first-child div:hover,
+#schedule-form table thead tr td div.selected, #schedule-form table thead tr td div.selected:hover,
+#schedule-form table tbody tr td:first-child div.selected,
+#schedule-form table tbody tr td div.selected, #schedule-form table tbody tr td div.selected:hover {
+    background: url(../img/ggrad.png) ;
+    background-repeat: repeat;
+    background-size: cover;
+    border-color: #b7c4df;
+    color: #444;
+}
