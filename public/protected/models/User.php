@@ -27,8 +27,7 @@ class User extends CActiveRecord
 {
 
     const ROLE_ADMIN = 'administrator';
-    const ROLE_MANAGER = 'manager';
-    const ROLE_OWNER = 'owner';
+    const ROLE_MODERATOR = 'moderator';
     const ROLE_USER = 'user';
     const ROLE_GUEST = 'guest';
 
@@ -93,8 +92,8 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'city' => array(self::BELONGS_TO, 'City', 'city_id'),
-            'orderSchedules' => array(self::HAS_MANY, 'OrderSchedule', 'user_id'),
+//            'city' => array(self::BELONGS_TO, 'City', 'city_id'),
+//            'orderSchedules' => array(self::HAS_MANY, 'OrderSchedule', 'user_id'),
 		);
 	}
 

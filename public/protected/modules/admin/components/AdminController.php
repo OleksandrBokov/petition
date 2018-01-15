@@ -106,7 +106,7 @@ class AdminController extends CController
         return array(
             array(
                 'allow',
-                'actions' => array('index','view','create','update','delete'),
+                'actions' => array('index','view','create','update','delete', 'settings', 'link'),
                 'roles' => array('administrator'),
             ),
             array(

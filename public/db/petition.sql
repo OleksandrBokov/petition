@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.0
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Хост: localhost
--- Время создания: Янв 11 2018 г., 16:00
--- Версия сервера: 5.6.25-log
--- Версия PHP: 5.6.20
+-- Хост: 127.0.0.1
+-- Время создания: Янв 15 2018 г., 16:05
+-- Версия сервера: 10.1.26-MariaDB
+-- Версия PHP: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -121,17 +123,18 @@ CREATE TABLE `user` (
   `id` int(10) UNSIGNED NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `firstName` varchar(45) DEFAULT NULL,
-  `lastName` varchar(45) DEFAULT NULL,
+  `firstName` varchar(45) NOT NULL,
+  `lastName` varchar(45) NOT NULL,
   `patronymic` varchar(50) NOT NULL,
   `phone` varchar(45) NOT NULL,
-  `gender` varchar(6) DEFAULT NULL,
-  `birthday` int(11) DEFAULT NULL,
-  `date_registration` int(11) DEFAULT NULL,
+  `social_status` varchar(15) DEFAULT NULL,
+  `birthday` int(11) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `date_registration` int(11) NOT NULL,
   `inn` int(11) NOT NULL,
-  `ip` varchar(50) DEFAULT NULL,
-  `token` varchar(255) DEFAULT NULL,
-  `avatar` varchar(255) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `avatar` varchar(255) NOT NULL DEFAULT '''''',
   `role` varchar(15) NOT NULL COMMENT 'admin,user,moderator',
   `status` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '0 - не авторизирован1 - авторизирован2 - заблокирован'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -140,8 +143,8 @@ CREATE TABLE `user` (
 -- Дамп данных таблицы `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `firstName`, `lastName`, `patronymic`, `phone`, `gender`, `birthday`, `date_registration`, `inn`, `ip`, `token`, `avatar`, `role`, `status`) VALUES
-(1, 'admin@admin.com', '4c60e7c968ead4a0b73a13134aba1f80', 'firstName', 'lastName', 'patronymic', '111111111111111', NULL, NULL, 1501143874, 1111111111, NULL, NULL, '', 'administrator', 1);
+INSERT INTO `user` (`id`, `email`, `password`, `firstName`, `lastName`, `patronymic`, `phone`, `social_status`, `birthday`, `address`, `date_registration`, `inn`, `ip`, `token`, `avatar`, `role`, `status`) VALUES
+(1, 'admin@admin.com', '4c60e7c968ead4a0b73a13134aba1f80', 'firstName', 'lastName', 'patronymic', '111111111111111', NULL, 0, '', 1501143874, 1111111111, '', '', '', 'administrator', 1);
 
 -- --------------------------------------------------------
 
@@ -201,7 +204,7 @@ ALTER TABLE `voting`
 -- AUTO_INCREMENT для таблицы `config`
 --
 ALTER TABLE `config`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT для таблицы `mobile_phones_code`
 --
@@ -221,7 +224,8 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `voting`
 --
 ALTER TABLE `voting`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

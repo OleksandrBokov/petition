@@ -124,7 +124,8 @@ return array(
                 'login/reset/successful'=>'/login/reset/successful',
 
                 'login/ajax'=>'login/default/ajax',
-
+                'moderator/registration'=>'/login/default/registration',
+//				login/moderator/registration
 //                'task/comment'=>'task/comment/index',
 //
 //                'site/playground'=>'/task/playground',
@@ -143,6 +144,8 @@ return array(
 
 
                 'admin'=>'admin/default/index',
+                'admin/default/settings'=>'admin/default/settings',
+                'admin/default/link'=>'admin/default/link',
                 'admin/login'=>'admin/default/login',
 
                 'admin/<module:\w+>'=>'<module>/admin/default',
@@ -158,6 +161,15 @@ return array(
 				'user/<module:\w+>/<controller:\w+>'=>'<module>/user/<controller>',
 				'user/<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/user/<controller>/<action>',
 				'user/<module:\w+>/<controller:\w+>/<action:\w+>/*'=>'<module>/user/<controller>/<action>',
+
+
+				'moderator'=>'moderator/default/index',
+				'moderator/login'=>'moderator/default/login',
+
+				'moderator/<module:\w+>'=>'<module>/moderator/default',
+				'moderator/<module:\w+>/<controller:\w+>'=>'<module>/moderator/<controller>',
+				'moderator/<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/moderator/<controller>/<action>',
+				'moderator/<module:\w+>/<controller:\w+>/<action:\w+>/*'=>'<module>/moderator/<controller>/<action>',
 
 
 //				'owner'=>'owner/default/index',

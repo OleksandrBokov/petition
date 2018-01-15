@@ -48,4 +48,23 @@ class Config extends CActiveRecord
             array('id, param, value, label, type, default', 'safe', 'on'=>'search'),
         );
     }
+
+
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('param',$this->param,true);
+        $criteria->compare('value',$this->value,true);
+        $criteria->compare('default',$this->default,true);
+        $criteria->compare('label',$this->label,true);
+        $criteria->compare('type',$this->type,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 }

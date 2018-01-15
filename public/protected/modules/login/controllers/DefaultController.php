@@ -20,6 +20,44 @@ class DefaultController extends Controller
             }
         }
     }
+    
+    public function actionRegistration()
+    {
+        if (!Yii::app()->user->isGuest)
+            throw new CHttpException(404, 'Error 404');
+        $model = new CustomUser();
+
+        if(isset($_POST['ajax']) && $_POST['ajax'] === 'moderator-sign-up-form') {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        if(isset($_POST['CustomUser'])) {
+
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";die;
+            $model->attributes = $_POST['CustomUser'];
+
+            if ($model->save()) {
+
+                $m = new Mail();
+                $message = $m->createMessage($model, 'registration');
+                Mailer::_createMailToHtml($message);
+
+                echo json_encode(['message'=> Yii::t('main',
+                    '{p}Спасибо большое! На Ваш e-mail (который вы ввели при регистрации) было отправлено письмо с ссылкой для подтверждение регистрации, а так же инструкции по дальнейшей работе с ресурсом. В случае если вы не получили письмо - проверьте папку со спамом.{/p}',
+                    ['{p}'=>'<p class="successful-registration">','{/p}'=>'</p>'])]);
+                Yii::app()->end();
+
+            }else{
+                echo CActiveForm::validate($model);
+                Yii::app()->end();
+            }
+
+        }
+        $this->render('registration', ['model'=>$model]);
+    }
 
     /*** Authorization and registration from social network ***/
     public function actionAjax()

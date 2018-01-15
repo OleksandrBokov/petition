@@ -59,7 +59,7 @@ if(Yii::app()->user->role == User::ROLE_ADMIN){
                 'items'=>CMap::mergeArray(
                     array(
                         array(
-                            'label'=>'Админ',
+                            'label'=>Yii::t('main','Администратор'),
                             'icon'=>'fa fa-dashboard',
                             'url' =>'/admin'
                         )
