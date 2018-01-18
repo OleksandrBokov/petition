@@ -121,7 +121,7 @@ class UserController extends CController
             ),
             array(
                 'allow',
-                'actions' => array('login'),
+                'actions' => array('login','registration'),
                 'users' => array('*'),
             ),
             array('deny',  // deny all users

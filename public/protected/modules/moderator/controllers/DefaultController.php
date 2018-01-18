@@ -5,7 +5,20 @@
  */
 class DefaultController extends ModeratorController
 {
-    
+    public function actionIndex()
+    {
+        $this->pageTitle = Yii::t('main','Петиции');
+        $petitionModel = new Petition('search');
+
+        $petitionModel->unsetAttributes();  // clear any default values
+        if (isset($_GET['Petition'])) {
+            $petitionModel->attributes = $_GET['Petition'];
+        }
+
+        $this->render('index', array(
+            'model' => $petitionModel,
+        ));
+    }
     /**
      * Login action
      */

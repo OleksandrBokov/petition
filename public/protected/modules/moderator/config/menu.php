@@ -6,5 +6,8 @@ return array(
         'url'  => Yii::app()->createUrl('/moderator'),
         'icon'  => 'fa fa-home',
         'position' => 1,
+        'linkOptions' => array(
+            'class'       => 'hidden',
+        ),
     ),
 );

@@ -34,7 +34,7 @@ return array(
         'bizRule' => null,
         'data' => null
     ),
-    'administrator' => array(
+    'admin' => array(
         'type' => CAuthItem::TYPE_ROLE,
         'description' => 'Administrator',
         'children' => array(

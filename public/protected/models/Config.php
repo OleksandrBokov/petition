@@ -48,7 +48,8 @@ class Config extends CActiveRecord
             array('id, param, value, label, type, default', 'safe', 'on'=>'search'),
         );
     }
-
+    
+    
 
     public function search()
     {

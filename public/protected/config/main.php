@@ -45,12 +45,12 @@ return array(
         ),*/
         'MultiMailer' => array(
             'class' =>'application.extensions.MultiMailer.MultiMailer',
-            'setFromAddress' => 'nasport51217@gmail.com',
-            'setFromName' => 'NaSportUa',
+            'setFromAddress' => 'dahanavar12@gmail.com',
+            'setFromName' => 'Petition',
             'setMethod' => 'GMAIL',
             'setOptions'     => array(
-                'Username' => 'nasport51217@gmail.com',
-                'Password' => 'nasport123',
+                'Username' => 'dahanavar12@gmail.com',
+                'Password' => '04150464',
             ),
         ),
         'loid' => array(
@@ -125,6 +125,9 @@ return array(
 
                 'login/ajax'=>'login/default/ajax',
                 'moderator/registration'=>'/login/default/registration',
+                'user/registration'=>'/user/default/registration',
+				'moderator/afterregistration' => '/login/default/afterregistration',
+//				'petition/moderator/create'=>'/petition/default/create',
 //				login/moderator/registration
 //                'task/comment'=>'task/comment/index',
 //
@@ -144,7 +147,7 @@ return array(
 
 
                 'admin'=>'admin/default/index',
-                'admin/default/settings'=>'admin/default/settings',
+//                'admin/default/capcha'=>'admin/default/capcha',
                 'admin/default/link'=>'admin/default/link',
                 'admin/login'=>'admin/default/login',
 
@@ -210,7 +213,7 @@ return array(
         ),
 		// database settings are configured in database.php
 		'db'=>require(dirname(__FILE__).'/database.php'),
-        //'cache'=>array('class'=>'system.caching.CFileCache'),// CFileCache включить кеширование
+        'cache'=>array('class'=>'system.caching.CFileCache'),// CFileCache включить кеширование
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>YII_DEBUG ? null : 'site/error',

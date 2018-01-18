@@ -333,7 +333,7 @@ class MultilingualBehavior extends CActiveRecordBehavior
 
                 public function tableName()
                 {
-                    return '{{{$this->langTableName}}}';
+                    return '{$this->langTableName}';
                 }
                     
                 public function relations()

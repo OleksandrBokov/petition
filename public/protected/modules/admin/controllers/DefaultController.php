@@ -17,24 +17,23 @@ class DefaultController extends AdminController
         ));
 	}
 
-    public function actionSettings()
-	{
-        $settingsModel = new Config('search');
 
-        $settingsModel->unsetAttributes();  // clear any default values
-        if (isset($_GET['Config'])) {
-            $settingsModel->attributes = $_GET['Config'];
-        }
-
-        $this->render('settings', array(
-            'model' => $settingsModel,
-        ));
-	}
+//    public function actionCapcha()
+//    {
+//        $this->pageTitle = Yii::t('main', 'Капча');
+//        $capchaKey = Yii::app()->config->get('capchaKey');
+//        $capchaSecretKey = Yii::app()->config->get('capchaSecretKey');
+//        
+//        $this->render('capcha', array(
+//            'capchaKey' => $capchaKey,
+//            'capchaSecretKey' => $capchaSecretKey,
+//        ));
+//    }
 
 
     public function actionLink()
     {
-        $link = $_SERVER['SERVER_NAME']. '/login/moderator/registration';
+        $link = $_SERVER['SERVER_NAME']. '/moderator/registration';
 
         $this->render('link', array(
             'link' => $link,

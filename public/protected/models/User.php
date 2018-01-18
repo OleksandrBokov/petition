@@ -26,7 +26,7 @@
 class User extends CActiveRecord
 {
 
-    const ROLE_ADMIN = 'administrator';
+    const ROLE_ADMIN = 'admin';
     const ROLE_MODERATOR = 'moderator';
     const ROLE_USER = 'user';
     const ROLE_GUEST = 'guest';
@@ -52,19 +52,17 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('email, password, phone, role, status', 'required'),
-			array('birthday, date_registration, timezone', 'numerical', 'integerOnly'=>true),
+			array('date_registration', 'numerical', 'integerOnly'=>true),
 			array('email, password', 'length', 'max'=>100),
-			array('firstName, lastName, phone, social_name', 'length', 'max'=>45),
-			array('social_id, social_link, token, avatar', 'length', 'max'=>255),
-			array('gender', 'length', 'max'=>6),
+			array('firstName, lastName, phone', 'length', 'max'=>45),
+			array('token, avatar', 'length', 'max'=>255),
 			array('ip', 'length', 'max'=>50),
-            array('city_id, status', 'length', 'max'=>10),
+            array('status', 'length', 'max'=>10),
 			array('role', 'length', 'max'=>15),
             array('status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, email, password, firstName, lastName, phone, social_name, 
-			social_id, social_link, gender, token, avatar,  birthday, date_registration, city_id, ip, timezone, role, status', 'safe', 'on'=>'search'),
+			array('id, email, password, firstName, lastName, phone, token, avatar,  birthday, date_registration, ip, role, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,8 +90,7 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-//            'city' => array(self::BELONGS_TO, 'City', 'city_id'),
-//            'orderSchedules' => array(self::HAS_MANY, 'OrderSchedule', 'user_id'),
+			'votings' => array(self::HAS_MANY, 'Voting', 'user_id'),
 		);
 	}
 
@@ -112,7 +109,6 @@ class User extends CActiveRecord
 			'social_name' => 'Social Name',
 			'social_id' => 'Social',
 			'social_link' => 'Social Link',
-			'gender' => 'Gender',
 			'birthday' => 'Birthday',
 			'date_registration' => 'Date Registraton',
 			'ip' => 'Ip',
@@ -148,15 +144,9 @@ class User extends CActiveRecord
 		$criteria->compare('firstName',$this->firstName,true);
 		$criteria->compare('lastName',$this->lastName,true);
 		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('social_name',$this->social_name,true);
-		$criteria->compare('social_id',$this->social_id,true);
-		$criteria->compare('social_link',$this->social_link,true);
-		$criteria->compare('gender',$this->gender,true);
 		$criteria->compare('birthday',$this->birthday);
 		$criteria->compare('date_registration',$this->date_registration);
 		$criteria->compare('ip',$this->ip,true);
-        $criteria->compare('city_id',$this->city_id,true);
-		$criteria->compare('timezone',$this->timezone);
 		$criteria->compare('role',$this->role,true);
 		$criteria->compare('status',$this->status,true);
 

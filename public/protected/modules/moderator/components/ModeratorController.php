@@ -116,7 +116,7 @@ class ModeratorController extends CController
         return array(
             array(
                 'allow',
-                'actions' => array('index','view','create','update','delete', 'registration'),
+                'actions' => array('index','view','create','update','delete', 'registration', 'create'),
                 'roles' => array('moderator'),
             ),
             array(

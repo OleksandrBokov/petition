@@ -110,7 +110,7 @@ class Mail extends CActiveRecord
                 'localizedAttributes' => array('title','content','link'),
                 ///langClassName' => 'CityLang',
                 //'localizedPrefix' => 'l_',
-                'langTableName' => '{{mail_lang}}',
+                'langTableName' => 'mail_lang',
                 'languages' => Yii::app()->params['translatedLanguages'],
                 'defaultLanguage' => Yii::app()->params['defaultLanguage'],
                 'langForeignKey' => 'owner_id',

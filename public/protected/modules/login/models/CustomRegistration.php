@@ -22,7 +22,7 @@
  * @property string $role
  * @property string $status
  */
-class CustomUser extends CActiveRecord
+class CustomRegistration extends CActiveRecord
 {
 	/**
 	 * @var
@@ -58,7 +58,6 @@ class CustomUser extends CActiveRecord
 			//['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
 			//['username', 'string', 'min' => 2, 'max' => 255],
 			['inn', 'length', 'min' => 10, 'max' => 10],
-			['inn', 'numerical', 'integerOnly' => TRUE,],
 			['birthday', 'length', 'max'=>10],
 			array('firstName, lastName, phone', 'length', 'max'=>45),
 			['phone', 'match', 'pattern' => '/^\+38\([0-9]{3}\)\s[0-9]{3}\s[0-9]{2}\s[0-9]{2}$/', 'message' => 'Телефон введений невірно' ],
@@ -83,7 +82,7 @@ class CustomUser extends CActiveRecord
 	public function checkMobilePhone($attribute,$params)
 	{
 
-		
+
 		if(!$this->checkMibilePhoneNumber($this->$attribute))
 			$this->addError($attribute, 'Ваш номер телефону не є мобільним '.$this->$attribute);
 	}
@@ -93,7 +92,7 @@ class CustomUser extends CActiveRecord
 		$birthUnix = strtotime($this->$attribute);
 		$minAge = strtotime('today UTC -16 year');
 		if($birthUnix > $minAge)
-			$this->addError($attribute, 'Ваш вік не дозволяє реєструватися');
+			$this->addError($attribute, 'Ваш вік не дозволяє регестріровать');
 	}
 
 	public function checkMibilePhoneNumber($phones){
@@ -133,25 +132,12 @@ class CustomUser extends CActiveRecord
 			$this->date_registration = DateHelper::setCurrentDateTimeToTimestamp();
 			$this->password =  User::model()->createPasswordHash($this->password);
 			$this->ip =  Yii::app()->getRequest()->getUserHostAddress();
-			$this->role = User::ROLE_MODERATOR;
+			$this->role = User::ROLE_USER;
 		}
 
 		return parent::beforeSave();
 	}
 
-//	protected function beforeValidate()
-//	{
-//		if($this->isNewRecord)
-//		{
-//			$this->token = RandomStringHelper::generate(Yii::app()->config->get('countSymbol'), Yii::app()->config->get('numberAndSymbolString'));
-//			$this->date_registration = DateHelper::setCurrentDateTimeToTimestamp();
-////			$this->password =  User::model()->createPasswordHash($this->password);
-//			$this->ip =  Yii::app()->getRequest()->getUserHostAddress();
-//			$this->role = User::ROLE_MODERATOR;
-//		}
-//
-//		return parent::beforeValidate();
-//	}
 
 	/**
 	 * @return array relational rules.
@@ -230,6 +216,19 @@ class CustomUser extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function checkValidToken($ref)
+	{
+		$model = User::model()->find('token = :token',[':token'=>$ref]);
+
+		if($model === null)
+			return false;
+		else{
+			$model->status = User::STATUS_AUTHORIZED;
+			$model->save();
+			return $model;
+		}
 	}
 
 	/**

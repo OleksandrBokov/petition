@@ -1,13 +1,64 @@
-<div style="margin-left: 30%;" class="tab-pane active" id="moderator-sign-up-form">
-    <div class="col-md-8">
+<?php
+/** path to assets in current module **/
+$baseUrl = $this->assetsUrl;
+
+/** path to assets in current theme **/
+$themeAssetsUrl = $this->themeAssetsUrl;
+
+$cs = Yii::app()->clientScript;
+
+$js_version = 1;
+$css_version = 1;
+
+$cs->scriptMap = array(
+    'styles.min.css' => false,
+    'bootstrap.min.js' => $themeAssetsUrl.'/js/bootstrap.min.js?' . $js_version,
+    'bootstrap.min.css' => $themeAssetsUrl.'/css/bootstrap.min.css?' . $css_version,
+);
+
+
+/* INPUT mask*/
+$cs->registerScriptFile($themeAssetsUrl.'/js/inputmask/jquery.inputmask.js');
+
+Yii::app()->clientScript->registerScript('phone-mask',"
+$(document.body).on('mouseenter','[data-toggle=mask]', function(e){
+    
+    $(this).inputmask('".Yii::app()->config->get('formatPhoneNumber')."',{'clearIncomplete':true});
+});
+",CClientScript::POS_READY);
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo Yii::app()->name?> | <?php echo Yii::t('main','Login')?></title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a ><b><?php echo Yii::app()->name?></b> </a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+
         <h2 class="line"><?php echo Yii::t('main', 'Регистрация');?></h2>
         <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' =>'moderator-registration-form',
-            'action' => Yii::app()->createUrl('/moderator/registration'),
+            'action' => Yii::app()->createUrl('/user/registration'),
             'enableClientValidation' => true,
             'method' => 'POST',
-            'htmlOptions'=>array('class'=>'form-horizontal registration')
+            'htmlOptions'=>array('class'=>'form-horizontal registration', 'style'=>'padding: 0 15px;')
         ));
         ?>
 
@@ -49,7 +100,7 @@
             <?php echo $form->error($model, 'email'); ?>
         </div>
         <div class="form-group">
-            <?php echo $form->textField($model, 'phone', array('class' => 'form-control phone-input-mask', 'placeholder' => Yii::t('main','Номер мобильного телефона'))); ?>
+            <?php echo $form->textField($model, 'phone', array('data-toggle'=>'mask','class' => 'form-control', 'placeholder' => Yii::t('main','Номер мобильного телефона'))); ?>
             <?php echo $form->error($model, 'phone'); ?>
         </div>
         <div class="form-group">
@@ -66,5 +117,30 @@
             <button type="submit" class="btn btn-regastration"><?php echo Yii::t('main','Зарегистрироватся')?></button>
         </div>
         <?php $this->endWidget(); ?>
+
     </div>
+    <!-- /.login-box-body -->
 </div>
+
+<?php
+/**** JS scripts ****/
+Yii::app()->clientScript->registerCoreScript('jquery', CClientScript::POS_END);
+// Bootstrap
+$cs->registerCssFile($themeAssetsUrl.'/css/bootstrap.min.css');
+$cs->registerScriptFile($themeAssetsUrl.'/js/bootstrap.min.js', CClientScript::POS_END);
+/*-- iCheck --*/
+$cs->registerScriptFile($baseUrl.'/iCheck/icheck.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile($baseUrl.'/iCheck/icheck.min.js',CClientScript::POS_END,['async'=>'async',
+    'onload'=>"$('input#iCheck').iCheck({checkboxClass: 'icheckbox_square-blue',radioClass: 'iradio_square-blue',increaseArea: '20%' });"]);
+
+
+/**** CSS styles ****/
+$cs->registerCssFile($baseUrl.'/css/AdminLTE.min.css');
+$cs->registerCssFile($baseUrl.'/iCheck/blue.css');
+$cs->registerCssFile($baseUrl.'/css/style.css');
+
+
+?>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 /**
  * Class UserModule
  */
-class UserModule extends CWebModule
+class ModeratorModule extends CWebModule
 {
 	/**
 	 * import models
@@ -15,8 +15,9 @@ class UserModule extends CWebModule
         parent::init();
 		// import the module-level models and components
 		$this->setImport(array(
-			'user.models.*',
-			'user.components.*',
+			'moderator.models.*',
+			'moderator.components.*',
+			'application.models.*',
 		));
 
 	}
@@ -30,7 +31,7 @@ class UserModule extends CWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
-            Yii::app()->user->loginUrl = Yii::app()->createUrl('/user/login');
+            Yii::app()->user->loginUrl = Yii::app()->createUrl('/moderator/login');
 
 			return true;
 		}
