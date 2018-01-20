@@ -8,7 +8,9 @@
 
 $modules = require(dirname(__FILE__).'/modules.php');
 
-
+//echo "<pre>";
+//var_dump(Yii::app()->config->get('capchaKey'));
+//echo "</pre>";die;
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'petition',
@@ -39,6 +41,16 @@ return array(
     )),
 	// application components
 	'components'=>array(
+		'reCaptcha' => array(
+			'name' => 'reCaptcha',
+			'class' => 'ext.yiiReCaptcha.ReCaptcha',
+//			'key' => Yii::app()->config->get('capchaKey'),
+			'key' => '6LerWkEUAAAAALoLORUIu3YT8uxy80vBXc4c0qWU',
+//			'key' => '6LerW',
+			//'secret' => Yii::app()->config->get('capchaSecretKey'),
+			'secret' => '6LerWkEUAAAAAOoN8XEojG23mWgcm7Gjwv7Twd0S',
+//			'secret' => '6LerW',
+		),
         'config'=>array( 'class' => 'SConfig'),
         /*'debug' => array(
             'class' => 'application.extensions.debug.Yii2Debug', // manual installation
@@ -57,44 +69,7 @@ return array(
             //'class' => 'ext.lightopenid.loid',
             'class' => 'application.modules.login.widgets.lightopenid.loid',
         ),
-        /*'eauth' => array(
-           // 'class' => 'ext.eauth.EAuth',
-            'class' => 'application.modules.login.widgets.eauth.EAuth',
-            'popup' => true, // Use the popup window instead of redirecting.
 
-            'services' => array( // You can change the providers and their classes.
-                'facebook' => array(
-                    'class' => 'CustomFacebookService',
-                    'client_id' => '1261998653879903',
-                    'client_secret' => '4f4fe0216921910a82827923771dc95a',
-                ),
-//                'google_oauth' => array(
-//                    // register your app here: https://code.google.com/apis/console/
-//                    'class' => 'GoogleOAuthService',
-//                    'client_id' => '732994437426-17cld5d7phqsvoq18al8d42hhl7ejen0.apps.googleusercontent.com',
-//                    'client_secret' => 'xerwBOR0CfZIyjOIRyTLSqUT',
-//                    'title' => 'Google Plus',
-//                ),
-//                'vkontakte' => array(
-//                    'class' => 'VKontakteOAuthService',
-//                    'client_id' => '',
-//                    'client_secret' => '',
-//                ),
-//                'mailru' => array(
-//                    'class' => 'MailruOAuthService',
-//                    'client_id' => '...',
-//                    'client_secret' => '...',
-//                ),
-//                'yandex' => array(
-//                    'class' => 'YandexOpenIDService',
-//                ),
-//                'twitter' => array(
-//                    'class' => 'TwitterOAuthService',
-//                    'key' => '...',
-//                    'secret' => '...',
-//                ),
-            ),
-        ),*/
 //        'request'=>array(
 //            'class'=>'SLanguageHttpRequest',
 //        ),
@@ -173,28 +148,7 @@ return array(
 				'moderator/<module:\w+>/<controller:\w+>'=>'<module>/moderator/<controller>',
 				'moderator/<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/moderator/<controller>/<action>',
 				'moderator/<module:\w+>/<controller:\w+>/<action:\w+>/*'=>'<module>/moderator/<controller>/<action>',
-
-
-//				'owner'=>'owner/default/index',
-//				'owner/login'=>'owner/default/login',
-//
-//				'owner/<module:\w+>'=>'<module>/owner/default',
-//				'owner/<module:\w+>/<controller:\w+>'=>'<module>/owner/<controller>',
-//				'owner/<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/owner/<controller>/<action>',
-//				'owner/<module:\w+>/<controller:\w+>/<action:\d+>'=>'<module>/owner/<controller>/<action>',
-//				'owner/<module:\w+>/<controller:\w+>/<action:\w+>/*'=>'<module>/owner/<controller>/<action>',
-
-
-//                'manager'=>'manager/default/index',
-//                'manager/login'=>'manager/default/login',
-////                'manager/task/in-work'=>'task/manager/inWork',
-//
-//                'manager/<module:\w+>'=>'<module>/manager/default',
-//                'manager/<module:\w+>/<controller:\w+>'=>'<module>/manager/<controller>',
-//                'manager/<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/manager/<controller>/<action>',
-//                'manager/<module:\w+>/<controller:\w+>/<action:\w+>/*'=>'<module>/manager/<controller>/<action>',
-
-
+				
 
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

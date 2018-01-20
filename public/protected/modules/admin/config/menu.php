@@ -15,9 +15,9 @@ return array(
         'url'  => Yii::app()->createUrl('/admin/default/capcha'),
         'icon'  => 'fa fa-cog',
         'position' => 2,
-//        'linkOptions' => array(
-//            'class'       => 'hidden',
-//        ),
+        'linkOptions' => array(
+            'class'       => 'hidden',
+        ),
     ),
     'linkForModeratoe'=>array(
         'label' => Yii::t('main', 'Ссылка'),

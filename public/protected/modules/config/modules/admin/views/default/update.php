@@ -15,7 +15,7 @@ $form = $this->beginWidget('CActiveForm', array(
 ?>
 <?php
 //echo "<pre>";
-//print_r($model);
+//print_r(Yii::app()->config->get('capchaKey'));
 //echo "</pre>";
 ?>
 <div class="box-body table-responsive no-padding">
@@ -33,7 +33,7 @@ $form = $this->beginWidget('CActiveForm', array(
                 <div class="form-group">
                     <label class="control-label"><?php echo Yii::t('main', "{$m->label}"); ?></label>
                 </div>
-                <?php echo CHtml::activeTextField($m, "[$m->param]value", ['placeholder'=>$m->default, 'class'=>'form-control']); ?>
+                <?php echo CHtml::activeTextField($m, "[$m->param]value", ['placeholder'=>$m->label, 'class'=>'form-control']); ?>
             <?php endforeach; ?>
 <!--            <div class="form-group">-->
 <!---->

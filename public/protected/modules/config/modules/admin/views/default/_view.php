@@ -1,5 +1,5 @@
 <li>
-    <lable><?php echo Yii::t('main', $data->label) ?></lable>
+    <lable><?php echo $data->label; ?></lable><br>
     <?php
         switch ($data->type){
             default:

@@ -61,9 +61,12 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
             'htmlOptions'=>array('class'=>'form-horizontal registration', 'style'=>'padding: 0 15px;')
         ));
         ?>
-
+        <?php
+        echo "<pre>";
+        print_r($model->getErrors());
+        echo "</pre>";
+        ?>
         <div class="form-group">
-
             <?php echo $form->textField($model,'firstName', array('class' => 'form-control', 'placeholder' => Yii::t('main','Имя'))); ?>
             <?php echo $form->error($model,'firstName'); ?>
         </div>
@@ -110,6 +113,18 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
         <div class="form-group">
             <?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => 'Пароль')); ?>
             <?php echo $form->error($model, 'password'); ?>
+        </div>
+        <div class="form-group">
+            <?php
+            $this->widget('application.ext.yiiReCaptcha.ReCaptcha', array(
+                'model'     => $model,
+                'attribute' => 'verifyCode',
+//                'key'=>Yii::app()->config->get('capchaKey'),//.'sasha',
+//                'secret'=>Yii::app()->config->get('capchaSecretKey'),
+                //'isSecureToken' => true, //для нескольких доменов
+            ));
+            ?>
+            <?php echo $form->error($model, 'verifyCode'); ?>
         </div>
         <p class="text-form">
             Натискаючи на кнопку "Зареєструватися", ви підтверджуєте свою згоду з умовами <a href="#" target="_blank"><span class="text-green"> (згода користувача) </span></a></p>

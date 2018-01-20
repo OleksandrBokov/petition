@@ -23,11 +23,14 @@ class DefaultController extends Controller
     
     public function actionRegistration()
     {
+
         $user = User::model()->findByAttributes(['role'=>User::ROLE_MODERATOR]);
         if (!Yii::app()->user->isGuest)
             throw new CHttpException(404, 'Error 404 role is not guest');
-        if(null != $user)
-            $this->redirect(Yii::app()->createUrl('/'));
+
+        if(null !== $user)
+            $this->redirect('/');
+
         $model = new CustomUser();
         if (isset($_POST['CustomUser'])) {
             $model->attributes = $_POST['CustomUser'];

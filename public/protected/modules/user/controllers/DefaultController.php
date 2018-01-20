@@ -54,6 +54,7 @@ class DefaultController extends UserController
             throw new CHttpException(404, 'Error 404 role is not guest');
 
         $model = new CustomUser();
+        $model->role = User::ROLE_USER;
         if (isset($_POST['CustomUser'])) {
             $model->attributes = $_POST['CustomUser'];
             if ($model->save()) {

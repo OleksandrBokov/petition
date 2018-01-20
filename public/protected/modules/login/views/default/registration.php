@@ -12,7 +12,6 @@
         ?>
 
         <div class="form-group">
-
             <?php echo $form->textField($model,'firstName', array('class' => 'form-control', 'placeholder' => Yii::t('main','Имя'))); ?>
             <?php echo $form->error($model,'firstName'); ?>
         </div>
@@ -24,7 +23,6 @@
         </div>
 
         <div class="form-group">
-
             <?php echo $form->textField($model,'patronymic', array('class' => 'form-control', 'placeholder' => Yii::t('main','Отчество'))); ?>
             <?php echo $form->error($model,'patronymic'); ?>
         </div>
@@ -60,6 +58,19 @@
             <?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => 'Пароль')); ?>
             <?php echo $form->error($model, 'password'); ?>
         </div>
+        <div class="form-group">
+            <?php
+            $this->widget('application.ext.yiiReCaptcha.ReCaptcha', array(
+                'model'     => $model,
+                'attribute' => 'verifyCode',
+                'key'=>Yii::app()->config->get('capchaKey'),//.'sasha',
+                'secret'=>Yii::app()->config->get('capchaSecretKey'),
+                //'isSecureToken' => true, //для нескольких доменов
+            ));
+            ?>
+            <?php echo $form->error($model, 'verifyCode'); ?>
+        </div>
+
         <p class="text-form">
             Натискаючи на кнопку "Зареєструватися", ви підтверджуєте свою згоду з умовами <a href="#" target="_blank"><span class="text-green"> (згода користувача) </span></a></p>
         <div class="form-group">

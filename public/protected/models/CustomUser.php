@@ -24,10 +24,7 @@
  */
 class CustomUser extends CActiveRecord
 {
-	/**
-	 * @var
-	 */
-	public $rememberMe;
+	public $verifyCode;
 	
 	/**
 	 * @return string the associated database table name
@@ -47,7 +44,8 @@ class CustomUser extends CActiveRecord
 		return array(
 			array('email, password, firstName, lastName, patronymic, phone, birthday, address, inn', 'required'),
 			//array('birthday, date_registration, inn', 'numerical', 'integerOnly'=>true),
-
+			array('verifyCode', 'required'),
+			array('verifyCode', 'ext.yiiReCaptcha.ReCaptchaValidator'),
 			array('email, password', 'length', 'max'=>100),
 			array('password', 'length', 'min'=>6),
 			array('email','email'),
@@ -133,25 +131,14 @@ class CustomUser extends CActiveRecord
 			$this->date_registration = DateHelper::setCurrentDateTimeToTimestamp();
 			$this->password =  User::model()->createPasswordHash($this->password);
 			$this->ip =  Yii::app()->getRequest()->getUserHostAddress();
-			$this->role = User::ROLE_MODERATOR;
+			if(empty($this->role)){
+				$this->role = User::ROLE_MODERATOR;
+			}
+
 		}
 
 		return parent::beforeSave();
 	}
-
-//	protected function beforeValidate()
-//	{
-//		if($this->isNewRecord)
-//		{
-//			$this->token = RandomStringHelper::generate(Yii::app()->config->get('countSymbol'), Yii::app()->config->get('numberAndSymbolString'));
-//			$this->date_registration = DateHelper::setCurrentDateTimeToTimestamp();
-////			$this->password =  User::model()->createPasswordHash($this->password);
-//			$this->ip =  Yii::app()->getRequest()->getUserHostAddress();
-//			$this->role = User::ROLE_MODERATOR;
-//		}
-//
-//		return parent::beforeValidate();
-//	}
 
 	/**
 	 * @return array relational rules.
@@ -188,6 +175,7 @@ class CustomUser extends CActiveRecord
 			'avatar' => 'Avatar',
 			'role' => 'Role',
 			'status' => 'Status',
+			'verifyCode'=>'Капча',
 		);
 	}
 
