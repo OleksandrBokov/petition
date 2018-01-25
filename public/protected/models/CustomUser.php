@@ -16,15 +16,15 @@
  * @property string $address
  * @property integer $date_registration
  * @property integer $inn
- * @property string $ip
  * @property string $token
- * @property string $avatar
  * @property string $role
  * @property string $status
  */
 class CustomUser extends CActiveRecord
 {
 	public $verifyCode;
+	public $userVote;
+	public $postIndex;
 	
 	/**
 	 * @return string the associated database table name
@@ -42,49 +42,107 @@ class CustomUser extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, firstName, lastName, patronymic, phone, birthday, address, inn', 'required'),
+			array('email, firstName, lastName, patronymic, phone, birthday, address, postIndex, inn', 'required'),
 			//array('birthday, date_registration, inn', 'numerical', 'integerOnly'=>true),
 			array('verifyCode', 'required'),
 			array('verifyCode', 'ext.yiiReCaptcha.ReCaptchaValidator'),
-			array('email, password', 'length', 'max'=>100),
-			array('password', 'length', 'min'=>6),
+//			array('verifyCode', 'reCaptchaValidator'),
+			array('email', 'length', 'max'=>100),
+//			array('password', 'length', 'min'=>6),
 			array('email','email'),
 			['email', 'filter', 'filter' => 'trim'],
-			['email', 'unique'],
-			['phone', 'unique'],
-			['inn', 'unique'],
+//			['email', 'unique'],
+//			['phone', 'unique'],
+//			['inn', 'unique'],
 			//['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
 			//['username', 'string', 'min' => 2, 'max' => 255],
 			['inn', 'length', 'min' => 10, 'max' => 10],
 			['inn', 'numerical', 'integerOnly' => TRUE,],
-			['birthday', 'length', 'max'=>10],
+			//['birthday', 'length', 'max'=>10],
 			array('firstName, lastName, phone', 'length', 'max'=>45),
 			['phone', 'match', 'pattern' => '/^\+38\([0-9]{3}\)\s[0-9]{3}\s[0-9]{2}\s[0-9]{2}$/', 'message' => 'Телефон введений невірно' ],
 			['phone', 'checkMobilePhone'],
 //			['birthday', 'match', 'pattern' => '/^\[0-9]{2}.[0-9]{2}.[0-9]{4}$/', 'message' => 'Дата рождения должна быть формата dd.mm.yyyy' ],
 			array('birthday', 'date','format'=>'dd.MM.yyyy','allowEmpty'=>false,'message'=>'Дата народження повинна бути формату dd.mm.yyyy.'),
 			['birthday', 'checkBirthdayRange'],
-			array('patronymic, ip', 'length', 'max'=>50),
+			array('patronymic', 'length', 'max'=>50),
 			array('social_status, role', 'length', 'max'=>15),
-			array('address, token, avatar', 'length', 'max'=>255),
+			array('address, token', 'length', 'max'=>255),
+			array('postIndex', 'length', 'max'=>6, 'min'=>6),
 			array('role', 'length', 'max'=>15),
 			array('lastName', 'match', 'pattern' => '/^[А-яҐЄІЇЁґєіїё\s]+$/u', 'message' => 'Поле "Прізвище" може містити тільки кирилицю'),
 			array('patronymic', 'match', 'pattern' => '/^[А-яҐЄІЇЁґєіїё\s]+$/u', 'message' => 'Поле "По батькові" може містити тільки кирилицю'),
 			array('firstName', 'match', 'pattern' => '/^[А-яҐЄІЇЁґєіїё\s]+$/u', 'message' => 'Поле "Ім\'я" може містити тільки кирилицю'),
 			array('status', 'length', 'max'=>10),
+			array('status', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, email, password, firstName, lastName, patronymic, phone, social_status, birthday, address, date_registration, inn, ip, token, avatar, role, status', 'safe', 'on'=>'search'),
+			array('id, email, password, firstName, lastName, patronymic, phone, social_status, birthday, address, postIndex, date_registration, inn, token, role, status, userVote', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function checkMobilePhone($attribute,$params)
 	{
-
-		
 		if(!$this->checkMibilePhoneNumber($this->$attribute))
 			$this->addError($attribute, 'Ваш номер телефону не є мобільним '.$this->$attribute);
 	}
+
+	public function checkUser()
+	{
+//		echo $this->inn;
+//		echo $this->firstName;
+//		echo $this->lastName;
+//		echo $this->patronymic;
+//		echo $this->birthday;
+
+//		if(!empty($this->inn) && !empty($this->birthday) && !empty($this->firstName) && !empty($this->lastName) && !empty($this->patronymic)){
+		if(!empty($this->email)){
+//			$user = User::model()->findByAttributes([
+//				'inn'=>$this->inn,
+//				'email'=>$this->email,
+//				'birthday'=>DateHelper::convertDateToTimeStamp($this->birthday),
+//				'firstName'=>$this->firstName,
+//				'lastName'=>$this->lastName,
+//				'patronymic'=>$this->patronymic,
+//			]);
+			
+			$user = User::model()->findByAttributes([
+				'email'=>$this->email,
+				'status'=>2,
+			]);
+			
+			
+			if(null === $user){
+				return false;
+			}
+			else{
+				return $user;
+				
+			}
+		}
+		return false;
+	}
+
+	
+//	public function reCaptchaValidator($attribute,$params)
+//	{
+//
+//
+//		$recaptcha_secret = Yii::app()->config->get('capchaSecretKey');
+//	   	$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$recaptcha_secret."&response=".$_POST['g-recaptcha-response']);
+//	   	$response = json_decode($response, true);
+//
+//	   	if($response['success'] === true){
+//			return true;
+//	   	}
+//	   	else{
+//			$this->addError($attribute, 'Ваш номер телефону не є мобільним '.$this->$attribute);
+//	 	}
+//
+//		
+//		if(!$this->checkMibilePhoneNumber($this->$attribute))
+//			$this->addError($attribute, 'Ваш номер телефону не є мобільним '.$this->$attribute);
+//	}
 
 	public function checkBirthdayRange($attribute,$params)
 	{
@@ -129,12 +187,13 @@ class CustomUser extends CActiveRecord
 		{
 			$this->token = RandomStringHelper::generate(Yii::app()->config->get('countSymbol'), Yii::app()->config->get('numberAndSymbolString'));
 			$this->date_registration = DateHelper::setCurrentDateTimeToTimestamp();
+			$this->address = $this->postIndex . ' '. $this->address;
+			$this->birthday = DateHelper::convertDateToTimeStamp($this->birthday);
 			$this->password =  User::model()->createPasswordHash($this->password);
-			$this->ip =  Yii::app()->getRequest()->getUserHostAddress();
+			$this->phone =  str_replace(['(',')','+',' '], '', $this->phone);
 			if(empty($this->role)){
 				$this->role = User::ROLE_MODERATOR;
 			}
-
 		}
 
 		return parent::beforeSave();
@@ -170,9 +229,7 @@ class CustomUser extends CActiveRecord
 			'address' => Yii::t('main','Адрес'),
 			'date_registration' => 'Date Registration',
 			'inn' => Yii::t('main','ИНН'),
-			'ip' => 'Ip',
 			'token' => 'Token',
-			'avatar' => 'Avatar',
 			'role' => 'Role',
 			'status' => 'Status',
 			'verifyCode'=>'Капча',
@@ -209,9 +266,7 @@ class CustomUser extends CActiveRecord
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('date_registration',$this->date_registration);
 		$criteria->compare('inn',$this->inn);
-		$criteria->compare('ip',$this->ip,true);
 		$criteria->compare('token',$this->token,true);
-		$criteria->compare('avatar',$this->avatar,true);
 		$criteria->compare('role',$this->role,true);
 		$criteria->compare('status',$this->status,true);
 

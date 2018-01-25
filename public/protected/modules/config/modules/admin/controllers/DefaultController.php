@@ -36,7 +36,7 @@ class DefaultController extends AdminController
 
     public function getItems($p = false)
     {
-        $items = ['capchaKey', 'capchaSecretKey'];
+        $items = ['capchaKey', 'capchaSecretKey', 'ipAccess'];
         $res = [];
         foreach ($items as $item){
             if(!$p){

@@ -35,7 +35,8 @@ class ReCaptcha extends CInputWidget
         if (empty($this->key)) {
             if (!empty(Yii::app()->reCaptcha->key)) {
                 $this->key = Yii::app()->reCaptcha->key;
-            } else {
+            }
+            else {
                 throw new CException('Required `siteKey` param isn\'t set.');
             }
         }
@@ -43,7 +44,8 @@ class ReCaptcha extends CInputWidget
         if (empty($this->secret)) {
             if (!empty(Yii::app()->reCaptcha->secret)) {
                 $this->secret = Yii::app()->reCaptcha->secret;
-            } else {
+            }
+            else {
                 throw new CException('Required `secret` param isn\'t set.');
             }
         }
@@ -54,10 +56,6 @@ class ReCaptcha extends CInputWidget
 
     public function run()
     {
-//        echo '$key= '.$this->secret.'<br>';
-//        echo 'secret= '.$this->secret.'<br>';
-//        Yii::app()->reCaptcha->key = $this->key;
-//        Yii::app()->reCaptcha->secret = $this->secret;
         $this->customFieldPrepare();
         $divOptions = array(
             'class'        => 'g-recaptcha',

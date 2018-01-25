@@ -34,7 +34,7 @@ $this->breadcrumbs = array(
 
                     <div class="form-group">
 
-                        <?php echo $form->textArea($model,'full_text', array('class' => 'form-control', 'placeholder' => 'Повный текст петиції')); ?>
+                        <?php echo $form->textArea($model,'full_text', array('class' => 'form-control', 'placeholder' => 'Повный текст петиції', 'rows' => 8)); ?>
                         <?php echo $form->error($model,'full_text'); ?>
                     </div>
                     <div class="form-group">

@@ -13,7 +13,7 @@ $modules = require(dirname(__FILE__).'/modules.php');
 //echo "</pre>";die;
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'petition',
+	'name'=>'Петиція',
     'sourceLanguage'=>'en_US',
     'theme'=>'classic',
     'language'=>'uk',
@@ -43,13 +43,7 @@ return array(
 	'components'=>array(
 		'reCaptcha' => array(
 			'name' => 'reCaptcha',
-			'class' => 'ext.yiiReCaptcha.ReCaptcha',
-//			'key' => Yii::app()->config->get('capchaKey'),
-			'key' => '6LerWkEUAAAAALoLORUIu3YT8uxy80vBXc4c0qWU',
-//			'key' => '6LerW',
-			//'secret' => Yii::app()->config->get('capchaSecretKey'),
-			'secret' => '6LerWkEUAAAAAOoN8XEojG23mWgcm7Gjwv7Twd0S',
-//			'secret' => '6LerW',
+			'class' => 'ext.yiiReCaptcha.PetitionReCaptcha',
 		),
         'config'=>array( 'class' => 'SConfig'),
         /*'debug' => array(
@@ -93,6 +87,7 @@ return array(
 
             'rules'=>array(
                 '/' => 'site/index',
+                'site/generate' => '/site/generate',
 
                 'logout'=>'/login/default/logout',
                 'login/reset/password'=>'/login/reset/password',
@@ -127,9 +122,13 @@ return array(
                 'admin/login'=>'admin/default/login',
 
                 'admin/<module:\w+>'=>'<module>/admin/default',
+
+				'admin/<module:\w+>/<action:\w+>'=>'<module>/admin/default/<action>',
+
                 'admin/<module:\w+>/<controller:\w+>'=>'<module>/admin/<controller>',
                 'admin/<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/admin/<controller>/<action>',
                 'admin/<module:\w+>/<controller:\w+>/<action:\w+>/*'=>'<module>/admin/<controller>/<action>',
+
 
 
 				'user'=>'user/default/index',

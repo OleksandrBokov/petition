@@ -28,12 +28,13 @@ class User extends CActiveRecord
 
     const ROLE_ADMIN = 'admin';
     const ROLE_MODERATOR = 'moderator';
+    const ROLE_MANAGER = 'moderator';
     const ROLE_USER = 'user';
     const ROLE_GUEST = 'guest';
 
     const STATUS_NOT_AUTHORIZED = 0;
     const STATUS_AUTHORIZED = 1;
-    const STATUS_BLOCKED = 2;
+    const STATUS_BLOCKED = 3;
 
 	/**
 	 * @return string the associated database table name
@@ -55,14 +56,13 @@ class User extends CActiveRecord
 			array('date_registration', 'numerical', 'integerOnly'=>true),
 			array('email, password', 'length', 'max'=>100),
 			array('firstName, lastName, phone', 'length', 'max'=>45),
-			array('token, avatar', 'length', 'max'=>255),
-			array('ip', 'length', 'max'=>50),
+			array('token', 'length', 'max'=>255),
             array('status', 'length', 'max'=>10),
 			array('role', 'length', 'max'=>15),
             array('status', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, email, password, firstName, lastName, phone, token, avatar,  birthday, date_registration, ip, role, status', 'safe', 'on'=>'search'),
+			array('id, email, password, firstName, lastName, phone, token, birthday, date_registration, role, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,7 +71,6 @@ class User extends CActiveRecord
         if($this->isNewRecord){
             $this->date_registration = DateHelper::setCurrentDateTimeToTimestamp();
             $this->password = $this->createPasswordHash($this->password);
-            $this->ip =  Yii::app()->getRequest()->getUserHostAddress();
         }
 
         return parent::beforeSave();
@@ -106,17 +105,11 @@ class User extends CActiveRecord
 			'firstName' => Yii::t('main','Имя'),
 			'lastName' => Yii::t('main','Фамилия'),
 			'phone' => Yii::t('main','Телефон'),
-			'social_name' => 'Social Name',
-			'social_id' => 'Social',
-			'social_link' => 'Social Link',
 			'birthday' => 'Birthday',
 			'date_registration' => 'Date Registraton',
-			'ip' => 'Ip',
 			'timezone' => 'Timezone',
 			'role' => 'Role',
-            'avatar' => 'Avatar',
 			'status' => 'Status',
-            'city_id' => Yii::t('main','город')
 		);
 	}
 
@@ -146,7 +139,6 @@ class User extends CActiveRecord
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('birthday',$this->birthday);
 		$criteria->compare('date_registration',$this->date_registration);
-		$criteria->compare('ip',$this->ip,true);
 		$criteria->compare('role',$this->role,true);
 		$criteria->compare('status',$this->status,true);
 

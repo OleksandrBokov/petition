@@ -11,10 +11,7 @@ $baseUrl =  Yii::app()->getBaseUrl(true);
     width:650px;
     min-height: 600px;
     text-align: center;
-    background:url(<?=$baseUrl?>/images/site/boll-img5.png) -50px 0 no-repeat,
-               url(<?=$baseUrl?>/images/site/boll-img2.png) 50px 450px no-repeat,
-               url(<?=$baseUrl?>/images/site/boll-img7.png) 30% 350px no-repeat,
-               url(<?=$baseUrl?>/images/site/boll-img3.png) 70% 100px no-repeat;">
+    ">
     <tbody>
         <?=$data['message']?>
     </tbody>

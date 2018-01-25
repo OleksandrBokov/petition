@@ -44,7 +44,7 @@ class Petition extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'petitionAnswers' => array(self::HAS_MANY, 'PetitionAnswer', 'petition_id'),
+			'petitionAnswers' => array(self::HAS_ONE, 'PetitionAnswer', 'petition_id'),
 			'votings' => array(self::HAS_MANY, 'Voting', 'petition_id'),
 		);
 	}

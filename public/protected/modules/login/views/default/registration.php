@@ -60,15 +60,18 @@
         </div>
         <div class="form-group">
             <?php
-            $this->widget('application.ext.yiiReCaptcha.ReCaptcha', array(
+//            Yii::import('application.ext.yiiReCaptcha.ReCaptcha');
+//            $cpt = new ReCaptcha();
+//            $cpt->key = Yii::app()->config->get('capchaKey');
+//            $cpt->secret = Yii::app()->config->get('capchaSecretKey');
+//            $cpt->run();
+            $this->widget('application.ext.yiiReCaptcha.PetitionReCaptcha', array(
                 'model'     => $model,
                 'attribute' => 'verifyCode',
-                'key'=>Yii::app()->config->get('capchaKey'),//.'sasha',
-                'secret'=>Yii::app()->config->get('capchaSecretKey'),
                 //'isSecureToken' => true, //для нескольких доменов
             ));
             ?>
-            <?php echo $form->error($model, 'verifyCode'); ?>
+            <?php echo $form->error($model, 'verifyCode');?>
         </div>
 
         <p class="text-form">

@@ -40,7 +40,7 @@ $this->breadcrumbs = array(
                     </div>
                     <div class="form-group">
 
-                        <?php echo $form->textArea($model,'answer', array('class' => 'form-control', 'placeholder' => Yii::t('main','Полный текст ответа'))); ?>
+                        <?php echo $form->textArea($model,'answer', array('class' => 'form-control', 'placeholder' => Yii::t('main','Полный текст ответа'), 'rows' => 8)); ?>
                         <?php echo $form->error($model,'answer'); ?>
                     </div>
                     <div class="form-group">

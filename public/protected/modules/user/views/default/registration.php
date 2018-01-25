@@ -26,6 +26,13 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
     $(this).inputmask('".Yii::app()->config->get('formatPhoneNumber')."',{'clearIncomplete':true});
 });
 ",CClientScript::POS_READY);
+
+Yii::app()->clientScript->registerScript('bd-mask',"
+$(document.body).on('mouseenter','[data-toggle=bd-mask]', function(e){
+    
+    $(this).inputmask('99.99.9999',{'clearIncomplete':true});
+});
+",CClientScript::POS_READY);
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +41,6 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
     <meta charset="UTF-8">
     <title><?php echo Yii::app()->name?> | <?php echo Yii::t('main','Login')?></title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,8 +56,15 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-
-        <h2 class="line"><?php echo Yii::t('main', 'Регистрация');?></h2>
+        <div class="text">
+            <p style="text-align: center"><strong><?php echo Yii::t('main', 'Регистрация');?></strong></p>
+            <ol style="padding-left: 5px; text-align: justify">
+                <li><span style="color: #d01717">Любий</span> текст</li>
+                <li><span style="color: #d01717">Любий</span> текст</li>
+                <li><span style="color: #d01717">Любий</span> текст</li>
+            </ol>
+        </div>
+<!--        <h2 class="line">--><?php //echo Yii::t('main', 'Регистрация');?><!--</h2>-->
         <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' =>'moderator-registration-form',
@@ -62,9 +75,9 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
         ));
         ?>
         <?php
-        echo "<pre>";
-        print_r($model->getErrors());
-        echo "</pre>";
+//        echo "<pre>";
+//        print_r($model->getErrors());
+//        echo "</pre>";
         ?>
         <div class="form-group">
             <?php echo $form->textField($model,'firstName', array('class' => 'form-control', 'placeholder' => Yii::t('main','Имя'))); ?>
@@ -84,8 +97,13 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
         </div>
 
         <div class="form-group">
-            <?php echo $form->textField($model,'birthday', array('class' => 'form-control birthday-input-mask', 'placeholder' => Yii::t('main','Дата рождения'))); ?>
+            <?php echo $form->textField($model,'birthday', array('class' => 'form-control','data-toggle'=>'bd-mask', 'placeholder' => Yii::t('main','Дата рождения'))); ?>
             <?php echo $form->error($model,'birthday'); ?>
+        </div>
+
+        <div class="form-group">
+            <?php echo $form->textField($model,'postIndex', array('class' => 'form-control', 'placeholder' => 'Поштовий індекс')); ?>
+            <?php echo $form->error($model,'postIndex'); ?>
         </div>
 
         <div class="form-group">
@@ -111,11 +129,12 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
             <?php echo $form->error($model, 'social_status'); ?>
         </div>
         <div class="form-group">
-            <?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => 'Пароль')); ?>
-            <?php echo $form->error($model, 'password'); ?>
-        </div>
-        <div class="form-group">
             <?php
+//            Yii::import('application.ext.yiiReCaptcha.ReCaptcha');
+//            $cpt = new ReCaptcha();
+//            $cpt->key = Yii::app()->config->get('capchaKey');
+//            $cpt->secret = Yii::app()->config->get('capchaSecretKey');
+//            $cpt->run();
             $this->widget('application.ext.yiiReCaptcha.ReCaptcha', array(
                 'model'     => $model,
                 'attribute' => 'verifyCode',
@@ -124,12 +143,19 @@ $(document.body).on('mouseenter','[data-toggle=mask]', function(e){
                 //'isSecureToken' => true, //для нескольких доменов
             ));
             ?>
+<!--            <div class="g-recaptcha" data-sitekey="6LerWkEUAAAAALoLORUIu3YT8uxy80vBXc4c0qWU"></div>-->
             <?php echo $form->error($model, 'verifyCode'); ?>
         </div>
         <p class="text-form">
             Натискаючи на кнопку "Зареєструватися", ви підтверджуєте свою згоду з умовами <a href="#" target="_blank"><span class="text-green"> (згода користувача) </span></a></p>
         <div class="form-group">
-            <button type="submit" class="btn btn-regastration"><?php echo Yii::t('main','Зарегистрироватся')?></button>
+            <?php if(!is_null($model->getError('userVote'))): ?>
+                <h4 style="text-align: center; text-transform: uppercase;"><?php echo $form->error($model, 'userVote'); ?></h4>
+                <a href="/" class="btn btn-regastration">На головну</a>
+            <?php else: ?>
+                <button type="submit" class="btn btn-regastration"><?php echo Yii::t('main','Зарегистрироватся')?></button>
+            <?php endif; ?>
+<!--            <button type="submit" class="btn btn-regastration">--><?php //echo Yii::t('main','Зарегистрироватся')?><!--</button>-->
         </div>
         <?php $this->endWidget(); ?>
 

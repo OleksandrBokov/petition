@@ -58,7 +58,7 @@ class CustomRegistration extends CActiveRecord
 			//['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
 			//['username', 'string', 'min' => 2, 'max' => 255],
 			['inn', 'length', 'min' => 10, 'max' => 10],
-			['birthday', 'length', 'max'=>10],
+//			['birthday', 'length', 'max'=>10],
 			array('firstName, lastName, phone', 'length', 'max'=>45),
 			['phone', 'match', 'pattern' => '/^\+38\([0-9]{3}\)\s[0-9]{3}\s[0-9]{2}\s[0-9]{2}$/', 'message' => 'Телефон введений невірно' ],
 			['phone', 'checkMobilePhone'],
@@ -129,12 +129,14 @@ class CustomRegistration extends CActiveRecord
 		if($this->isNewRecord)
 		{
 			$this->token = RandomStringHelper::generate(Yii::app()->config->get('countSymbol'), Yii::app()->config->get('numberAndSymbolString'));
+			$this->birthday = DateHelper::convertDateToTimeStamp($this->birthday);
 			$this->date_registration = DateHelper::setCurrentDateTimeToTimestamp();
 			$this->password =  User::model()->createPasswordHash($this->password);
 			$this->ip =  Yii::app()->getRequest()->getUserHostAddress();
 			$this->role = User::ROLE_USER;
 		}
 
+		
 		return parent::beforeSave();
 	}
 

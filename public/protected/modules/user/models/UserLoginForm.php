@@ -69,15 +69,33 @@ class UserLoginForm extends CFormModel
      */
     public function login()
     {
+
         if($this->_identity===null)
         {
             $this->_identity= new UserIdentity($this->username,$this->password);
             $this->_identity->authenticate();
         }
+
+
+
         if($this->_identity->errorCode === UserIdentity::ERROR_NONE)
         {
             $duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
             Yii::app()->user->login($this->_identity,$duration);
+
+            if(Yii::app()->user->role === User::ROLE_MODERATOR ){
+
+                if(!empty(Yii::app()->config->get('ipAccess'))){
+                    $accessIpArr = explode(',', Yii::app()->config->get('ipAccess'));
+                    foreach ($accessIpArr as $accessIp){
+                        if(trim($accessIp) == $_SERVER['REMOTE_ADDR']){
+                            return true;
+                        }
+                    }
+                }
+                Yii::app()->user->logout();
+                return false;
+            }
             return true;
         }
         else

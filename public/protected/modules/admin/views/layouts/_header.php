@@ -14,21 +14,14 @@
         </a>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <?php
-//                $this->widget('application.components.widgets.LanguagesSwitcher', array(
-//                    'htmlOptions'=>array('class'=>'nav navbar-nav'),
-//                    'listOptions'=>array('class'=>'dropdown'),
-//                    'linkOptions'=>array('class'=>'dropdown-toggle', 'data-toggle'=>'dropdown','role'=>'button','aria-haspopup'=>'true','aria-expanded'=>'true', 'href'=>'#')
-//                ));
-                ?>
-                <li><a href="<?php echo Yii::app()->createUrl('/')?>"><?php echo Yii::t('main', 'На главную')?></a></li>
+                <li><a href="/"><?php echo Yii::t('main', 'На главную')?></a></li>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <?php
                         $model = User::model()->findByPk(Yii::app()->user->id);
                         $this->widget('application.extensions.widgets.avatar.AvatarWidget',array(
                             'image'=>array(
-                                'src'=>$model->avatar,
+                                'src'=>'',
                                 'alt'=>'admin',//$model->firstName.' '.$model->lastName,
                                 'base_url'=>Yii::app()->request->hostInfo,
                                 'upload'=>false,

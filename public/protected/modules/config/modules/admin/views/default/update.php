@@ -13,11 +13,7 @@ $form = $this->beginWidget('CActiveForm', array(
     'htmlOptions'=>array('class'=>'form-horizontal registration')
 ));
 ?>
-<?php
-//echo "<pre>";
-//print_r(Yii::app()->config->get('capchaKey'));
-//echo "</pre>";
-?>
+
 <div class="box-body table-responsive no-padding">
 
     <div class="box ">
@@ -35,18 +31,6 @@ $form = $this->beginWidget('CActiveForm', array(
                 </div>
                 <?php echo CHtml::activeTextField($m, "[$m->param]value", ['placeholder'=>$m->label, 'class'=>'form-control']); ?>
             <?php endforeach; ?>
-<!--            <div class="form-group">-->
-<!---->
-<!--                --><?php //echo $form->textField($capchaKey,'capchaKey', array('class' => 'form-control', 'placeholder' => 'Ключ')); ?>
-<!--                --><?php ////echo $form->error($model,'capchaKey'); ?>
-<!--            </div>-->
-<!---->
-<!--            <div class="form-group">-->
-<!---->
-<!--                --><?php //echo $form->textArea($capchaSecretKey,'capchaSecretKey', array('class' => 'form-control', 'placeholder' => 'Секретный ключ')); ?>
-<!--                --><?php ////echo $form->error($model,'capchaSecretKey'); ?>
-<!--            </div>-->
-
         </div>
     </div>
 </div>

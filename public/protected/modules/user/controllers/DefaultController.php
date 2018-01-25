@@ -32,6 +32,7 @@ class DefaultController extends UserController
         if(isset($_POST['UserLoginForm']))
         {
             $model->attributes=$_POST['UserLoginForm'];
+            
             // validate user input and redirect to the previous page if valid
             if($model->validate() && $model->login()){
                 Yii::app()->user->setReturnUrl('/user');
@@ -57,11 +58,33 @@ class DefaultController extends UserController
         $model->role = User::ROLE_USER;
         if (isset($_POST['CustomUser'])) {
             $model->attributes = $_POST['CustomUser'];
-            if ($model->save()) {
-                $m = new Mail();
-                $message = $m->createMessage($model, 'registration');
-                Mailer::_createMailToHtml($message);
-                $this->redirect(Yii::app()->createUrl('/moderator/afterregistration'));
+
+            if($model->validate()){
+                if($user = $model->checkUser()){
+
+                    if($user->status == 2){
+                        $user->status = 0;
+                        $user->attributes = $_POST['CustomUser'];
+                        $user->save();
+                        $m = new Mail();
+                        $message = $m->createMessage($user, 'registration');
+                        Mailer::_createMailToHtml($message);
+                        $this->redirect(Yii::app()->createUrl('/moderator/afterregistration'));
+                    }
+                    else{
+                        $model->addError('userVote', 'Ви вже підписали петицію');
+                    }
+                    $this->render('registration', ['model'=>$model]);die;
+
+                }
+                else{
+                    $model->save(false);
+                    $m = new Mail();
+                    $message = $m->createMessage($model, 'registration');
+                    Mailer::_createMailToHtml($message);
+                    $this->redirect(Yii::app()->createUrl('/moderator/afterregistration'));
+                }
+                
             }
         }
 

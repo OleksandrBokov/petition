@@ -15,7 +15,7 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
-                <li><a href="<?php echo Yii::app()->createUrl('/')?>"><?php echo Yii::t('main', 'На главную')?></a></li>
+                <li><a href="/"><?php echo Yii::t('main', 'На главную')?></a></li>
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
