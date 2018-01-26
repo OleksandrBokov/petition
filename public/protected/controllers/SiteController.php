@@ -58,20 +58,31 @@ class SiteController extends Controller
 	{
 		$petition = Petition::model()->findAll();
 		$userVote = null;
-		$vote = new Voting('search');
-		$dataProvider = $vote->search();
+
 		if(!Yii::app()->user->isGuest){
 			$userVote = User::model()->findByPk(Yii::app()->user->id);
 		}
 
-		$vote->unsetAttributes();  // clear any default values
-		if(isset($_GET['Voting']))
-			$vote->attributes=$_GET['Voting'];
+
+
+
+		$user =  new CustomUser('search');
+
+
+		$user->unsetAttributes();  // clear any default values
+		if(isset($_GET['UserCustom']))
+			$user->attributes=$_GET['UserCustom'];
+
+		$dataProvider = $user->search();
+
+//		echo "<pre>";
+//		print_r($dataProvider->getData());
+//		echo "</pre>";die;
 
         $this->render('index', array(
 			'userVote'=>$userVote,
 			'petition' => count($petition)?$petition[0]:'',
-			'votes' => $vote,
+			'votes' => $user,
 			'dataProvider'=>$dataProvider
 			)
 		);

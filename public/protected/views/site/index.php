@@ -36,7 +36,7 @@
                                     <?php
                                     $i = 0;
                                     $this->widget('zii.widgets.grid.CGridView', array(
-                                        'id'=>'vacancy-grid',
+                                        'id'=>'petition-grid',
                                         'itemsCssClass' => 'table',
                                         'cssFile' => false,
                                         'hideHeader'=>true,
@@ -65,7 +65,7 @@
                                             array(
                                                 'header'=>false,
                                                 'filter'=>false,
-                                                'value'=>'$data->user->lastName." ".$data->user->firstName." ".$data->user->patronymic',
+                                                'value'=>'$data->lastName." ".$data->firstName." ".$data->patronymic',
                                                 'htmlOptions'=>array('class'=>'table_cell name'),
                                                 'cssClassExpression' => '',
                                             ),

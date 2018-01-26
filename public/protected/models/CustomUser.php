@@ -224,7 +224,6 @@ class CustomUser extends CActiveRecord
 			'lastName' => Yii::t('main','Фамилия'),
 			'patronymic' => Yii::t('main','Отчество'),
 			'phone' => Yii::t('main','Номер мобильного телефона'),
-			'social_status' => Yii::t('main','Социальный статут'),
 			'birthday' => Yii::t('main','Дата рождения'),
 			'address' => Yii::t('main','Адрес'),
 			'date_registration' => 'Date Registration',
@@ -261,14 +260,16 @@ class CustomUser extends CActiveRecord
 		$criteria->compare('lastName',$this->lastName,true);
 		$criteria->compare('patronymic',$this->patronymic,true);
 		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('social_status',$this->gender,true);
+		$criteria->compare('social_status',$this->social_status,true);
 		$criteria->compare('birthday',$this->birthday);
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('date_registration',$this->date_registration);
 		$criteria->compare('inn',$this->inn);
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('role',$this->role,true);
-		$criteria->compare('status',$this->status,true);
+		$criteria->addCondition('role <> "'. User::ROLE_ADMIN.'"');
+		//$criteria->compare('status',$this->status,true);
+		$criteria->addCondition('status in ('.User::STATUS_AUTHORIZED.',2)');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
