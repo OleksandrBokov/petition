@@ -94,9 +94,10 @@ return array(
                 'login/reset/successful'=>'/login/reset/successful',
 
                 'login/ajax'=>'login/default/ajax',
-                'moderator/registration'=>'/login/default/registration',
+                'moderator/registration'=>'/moderator/default/registration',
                 'user/registration'=>'/user/default/registration',
 				'moderator/afterregistration' => '/login/default/afterregistration',
+				'moderator/changestatus' => '/moderator/default/changestatus',
 //				'petition/moderator/create'=>'/petition/default/create',
 //				login/moderator/registration
 //                'task/comment'=>'task/comment/index',

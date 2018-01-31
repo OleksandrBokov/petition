@@ -55,10 +55,15 @@
                                         ),
                                         'template' => '{items}{summary}{pager}',
                                         'columns'=>array(
+//                                            array(
+//                                                'header'=>false,
+//                                                'filter'=>false,
+//                                                'value'=> '$data->id . "."',
+//                                                'htmlOptions'=>array('class'=>'table_cell number'),
+//                                                'cssClassExpression' => '',
+//                                            ),
                                             array(
-                                                'header'=>false,
-                                                'filter'=>false,
-                                                'value'=> '$data->id . "."',
+                                                'class'=>'IndexColumn',
                                                 'htmlOptions'=>array('class'=>'table_cell number'),
                                                 'cssClassExpression' => '',
                                             ),
@@ -142,18 +147,15 @@
                         <div class="votes" id="votes">
                             <?php if($now > $endDay): ?>
                                 <!--                            Збір підписів завершено-->
-                            <?php elseif((Yii::app()->user->role === User::ROLE_USER || Yii::app()->user->role === User::ROLE_MODERATOR)): ?>
+                            <?php elseif(Yii::app()->user->role === User::ROLE_MODERATOR && Yii::app()->user->status == User::STATUS_MODERATOR): ?>
+                                <a href="<?php echo Yii::app()->createUrl('/moderator/changestatus')?>" class="btn btn-success" ><?php echo Yii::t('main','підпісати петицію')?></a>
+                            <?php elseif(Yii::app()->user->role === User::ROLE_USER || Yii::app()->user->role === User::ROLE_MODERATOR): ?>
                                 <div class="vote-mssg">Ваш підпис зараховано</div>
                             <?php else: ?>
                                 <a href="<?php echo Yii::app()->createUrl('/user/registration')?>" class="btn btn-success" ><?php echo Yii::t('main','підпісати петицію')?></a>
-<!--                                <div class="vote-mssg">Для того, щоб підтримати петицію, необхідно <a href="--><?php //echo Yii::app()->createUrl('/user/login')?><!--" class="novisited">авторизуватися</a>.</div>-->
                             <?php endif; ?>
                         </div>
 
-                        <!--                        <div class="pet_help">-->
-                        <!--                            <div class="pethelp_icon"><i class="fa "></i></div>-->
-                        <!--                            <div class="pethelp_title"></div>-->
-                        <!--                        </div>-->
                     </div>
                     <div class="petition_share_wijet">
                         <div class="share_wijet_url">

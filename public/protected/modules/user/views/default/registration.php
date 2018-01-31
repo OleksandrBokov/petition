@@ -130,20 +130,11 @@ $(document.body).on('mouseenter','[data-toggle=bd-mask]', function(e){
         </div>
         <div class="form-group">
             <?php
-//            Yii::import('application.ext.yiiReCaptcha.ReCaptcha');
-//            $cpt = new ReCaptcha();
-//            $cpt->key = Yii::app()->config->get('capchaKey');
-//            $cpt->secret = Yii::app()->config->get('capchaSecretKey');
-//            $cpt->run();
             $this->widget('application.ext.yiiReCaptcha.ReCaptcha', array(
                 'model'     => $model,
                 'attribute' => 'verifyCode',
-//                'key'=>Yii::app()->config->get('capchaKey'),//.'sasha',
-//                'secret'=>Yii::app()->config->get('capchaSecretKey'),
-                //'isSecureToken' => true, //для нескольких доменов
             ));
             ?>
-<!--            <div class="g-recaptcha" data-sitekey="6LerWkEUAAAAALoLORUIu3YT8uxy80vBXc4c0qWU"></div>-->
             <?php echo $form->error($model, 'verifyCode'); ?>
         </div>
         <p class="text-form">
@@ -155,7 +146,6 @@ $(document.body).on('mouseenter','[data-toggle=bd-mask]', function(e){
             <?php else: ?>
                 <button type="submit" class="btn btn-regastration"><?php echo Yii::t('main','Зарегистрироватся')?></button>
             <?php endif; ?>
-<!--            <button type="submit" class="btn btn-regastration">--><?php //echo Yii::t('main','Зарегистрироватся')?><!--</button>-->
         </div>
         <?php $this->endWidget(); ?>
 

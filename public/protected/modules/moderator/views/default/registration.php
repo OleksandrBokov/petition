@@ -58,17 +58,12 @@ $(document.body).on('mouseenter','[data-toggle=bd-mask]', function(e){
     <div class="login-box-body">
         <div class="text">
             <p style="text-align: center"><strong><?php echo Yii::t('main', 'Регистрация');?></strong></p>
-            <ol style="padding-left: 5px; text-align: justify">
-                <li><span style="color: #d01717">Любий</span> текст</li>
-                <li><span style="color: #d01717">Любий</span> текст</li>
-                <li><span style="color: #d01717">Любий</span> текст</li>
-            </ol>
         </div>
         <!--        <h2 class="line">--><?php //echo Yii::t('main', 'Регистрация');?><!--</h2>-->
         <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' =>'moderator-registration-form',
-            'action' => Yii::app()->createUrl('/user/registration'),
+            'action' => Yii::app()->createUrl('/moderator/registration'),
             'enableClientValidation' => true,
             'method' => 'POST',
             'htmlOptions'=>array('class'=>'form-horizontal registration', 'style'=>'padding: 0 15px;')
@@ -129,21 +124,16 @@ $(document.body).on('mouseenter','[data-toggle=bd-mask]', function(e){
             <?php echo $form->error($model, 'social_status'); ?>
         </div>
         <div class="form-group">
+            <?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'placeholder' => Yii::t('main','Пароль'))); ?>
+            <?php echo $form->error($model, 'password'); ?>
+        </div>
+        <div class="form-group">
             <?php
-            //            Yii::import('application.ext.yiiReCaptcha.ReCaptcha');
-            //            $cpt = new ReCaptcha();
-            //            $cpt->key = Yii::app()->config->get('capchaKey');
-            //            $cpt->secret = Yii::app()->config->get('capchaSecretKey');
-            //            $cpt->run();
             $this->widget('application.ext.yiiReCaptcha.ReCaptcha', array(
                 'model'     => $model,
                 'attribute' => 'verifyCode',
-//                'key'=>Yii::app()->config->get('capchaKey'),//.'sasha',
-//                'secret'=>Yii::app()->config->get('capchaSecretKey'),
-                //'isSecureToken' => true, //для нескольких доменов
             ));
             ?>
-            <!--            <div class="g-recaptcha" data-sitekey="6LerWkEUAAAAALoLORUIu3YT8uxy80vBXc4c0qWU"></div>-->
             <?php echo $form->error($model, 'verifyCode'); ?>
         </div>
         <p class="text-form">

@@ -48,7 +48,8 @@ $cs->coreScriptPosition = CClientScript::POS_END;
             'clientOptions'=>array(
                 'validateOnSubmit'=>true,
             )
-        )); ?>
+        ));
+        ?>
         <div class="form-group has-feedback">
 
             <?php echo $form->textField($model,'username',
@@ -64,6 +65,14 @@ $cs->coreScriptPosition = CClientScript::POS_END;
             <span class='glyphicon glyphicon-lock form-control-feedback'></span>
             <?php echo $form->error($model,'password'); ?>
         </div>
+        <?php if(!is_null($model->getError('ip'))): ?>
+            <div class="form-group has-feedback">
+
+                <span class='form-control-feedback'></span>
+                <?php echo $form->error($model,'ip'); ?>
+            </div>
+
+        <?php endif; ?>
         <div class="row">
             <div class="col-xs-12 ">
                 <div class="checkbox icheck no-margin">
@@ -90,6 +99,7 @@ $cs->coreScriptPosition = CClientScript::POS_END;
 Yii::app()->clientScript->registerCoreScript('jquery', CClientScript::POS_END);
 // Bootstrap
 $cs->registerCssFile($themeAssetsUrl.'/css/bootstrap.min.css');
+$cs->registerCssFile($themeAssetsUrl.'/css/main.css');
 $cs->registerScriptFile($themeAssetsUrl.'/js/bootstrap.min.js', CClientScript::POS_END);
 /*-- iCheck --*/
 $cs->registerScriptFile($baseUrl.'/iCheck/icheck.min.js', CClientScript::POS_END);

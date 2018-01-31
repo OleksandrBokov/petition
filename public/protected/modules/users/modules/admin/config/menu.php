@@ -6,5 +6,8 @@ return array(
         'url'  => Yii::app()->createUrl('/admin/users'),
         'icon'  => 'fa fa-users',
         'position' => 3,
+        'linkOptions' => array(
+            'class'       => 'hidden',
+        ),
     ),
 );

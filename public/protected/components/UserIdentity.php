@@ -19,7 +19,7 @@ class UserIdentity extends CUserIdentity
 
 
 
-        if (($user === null) || ( md5(Yii::app()->config->get('hashKey') . $this->password) !== $user->password)) {
+        if (($user === null) || ( md5(Yii::app()->config->get('hashKey') . $this->password) !== $user->password) || $user->status == 0) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         } else {
             // В качестве идентификатора будем использовать id, а не username,

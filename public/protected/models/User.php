@@ -34,7 +34,9 @@ class User extends CActiveRecord
 
     const STATUS_NOT_AUTHORIZED = 0;
     const STATUS_AUTHORIZED = 1;
+    const STATUS_TEMPL = 2;
     const STATUS_BLOCKED = 3;
+    const STATUS_MODERATOR = 4;
 
 	/**
 	 * @return string the associated database table name

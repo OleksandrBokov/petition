@@ -59,6 +59,14 @@ Yii::app()->clientScript->registerCoreScript('jquery', CClientScript::POS_END);
 $cs->registerCssFile($baseUrl.'/css/bootstrap.min.css');
 $cs->registerScriptFile($baseUrl.'/js/bootstrap.min.js', CClientScript::POS_END);
 
+$cs->registerScriptFile($themeAssetsUrl.'/js/inputmask/jquery.inputmask.js', CClientScript::POS_END);
+//['onload' =>"$('#AdminManager_phone').inputmask('".Yii::app()->config->get('formatPhoneNumber')."',{'clearIncomplete':true});"]
+Yii::app()->clientScript->registerScript('phone-mask',"
+$(document.body).on('mouseenter','[data-toggle=mask]', function(e){
+    
+    $(this).inputmask('".Yii::app()->config->get('formatPhoneNumber')."',{'clearIncomplete':true});
+});
+",CClientScript::POS_READY);
 
 ?>
 </body>

@@ -1,5 +1,4 @@
 <?php
-//Yii::import('application.modules.registration.models.Social');
 
 class DefaultController extends Controller
 {
@@ -23,7 +22,7 @@ class DefaultController extends Controller
     
     public function actionRegistration()
     {
-
+        $this->layout = false;
         $user = User::model()->findByAttributes(['role'=>User::ROLE_MODERATOR]);
         if (!Yii::app()->user->isGuest)
             throw new CHttpException(404, 'Error 404 role is not guest');
@@ -42,7 +41,8 @@ class DefaultController extends Controller
             }
         }
 
-        $this->render('registration', ['model'=>$model]);
+//        $this->render('registration', ['model'=>$model]);
+        $this->render('application.modules.user.views.default.registration', ['model'=>$model]);
     }
 
     public function actionAfterregistration()

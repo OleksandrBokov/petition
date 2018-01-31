@@ -156,6 +156,9 @@ class Mail extends CActiveRecord
             case 'account_create' :
                 $mail->content = $this->getAccountCreateContent($model, $mail);
                 break;
+            case 'moderator_registrate' :
+                $mail->content = $this->getModeratorRegistrateContent($mail);
+                break;
             case 'new_task' :
                 $model->email = Yii::app()->config->get('adminEmail');
                 $mail->content = $this->getNewTaskCreateContent($model, $mail);
@@ -204,6 +207,15 @@ class Mail extends CActiveRecord
         $mail->content = str_replace('{password}',$model->password, $mail->content);
 
         return $mail->content;
+    }
+
+    protected function getModeratorRegistrateContent($mail)
+    {
+
+        $link = $this->baseUrl;
+
+        $link .= Yii::app()->createUrl('/moderator/login');
+        return str_replace('{link}', CHtml::link($mail->link, $link),$mail->content);
     }
 
 

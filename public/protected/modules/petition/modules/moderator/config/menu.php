@@ -14,7 +14,7 @@ return array(
         'label'    => Yii::t('main', 'Ответ'),
         'url'      => Yii::app()->createUrl('/moderator/petition/answer'),
         'icon' =>'fa fa-map-o',
-        'position' => 1,
+        'position' => 2,
 //        'linkOptions' => array(
 //            'class'       => !count($entityModel) ? 'hidden' : '',
 //        ),

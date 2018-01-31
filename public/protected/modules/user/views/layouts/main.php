@@ -109,7 +109,7 @@ $cs->registerCssFile($baseUrl.'/css/loader.css');
 $cs->registerCssFile($baseUrl.'/css/dataTables.bootstrap.css');
 
 /*-- InputMask --*/
-$cs->registerScriptFile($themeAssetsUrl.'/js/inputmask/jquery.inputmask.js', CClientScript::POS_END);
+//$cs->registerScriptFile($themeAssetsUrl.'/js/inputmask/jquery.inputmask.js', CClientScript::POS_END);
 
 /* INPUT mask*/
 $cs->registerScriptFile($themeAssetsUrl.'/js/inputmask/jquery.inputmask.js', CClientScript::POS_END);

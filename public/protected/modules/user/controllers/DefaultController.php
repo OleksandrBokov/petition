@@ -60,10 +60,10 @@ class DefaultController extends UserController
             $model->attributes = $_POST['CustomUser'];
 
             if($model->validate()){
-                if($user = $model->checkUser()){
+                if($user = $model->checkUser(User::STATUS_TEMPL)){
 
-                    if($user->status == 2){
-                        $user->status = 0;
+                    if($user->status == User::STATUS_TEMPL){
+                        $user->status = User::STATUS_NOT_AUTHORIZED;
                         $user->attributes = $_POST['CustomUser'];
                         $user->save();
                         $m = new Mail();
@@ -72,15 +72,29 @@ class DefaultController extends UserController
                         $this->redirect(Yii::app()->createUrl('/moderator/afterregistration'));
                     }
                     else{
-                        $model->addError('userVote', 'Ви вже підписали петицію');
+                        $model->addError('userVote', 'Вибачте, такий e-mail вже існує в системі');
                     }
                     $this->render('registration', ['model'=>$model]);die;
 
+                }
+                elseif($user = $model->checkUser(User::STATUS_AUTHORIZED)){
+
+                    $model->addError('userVote', 'Вибачте, такий e-mail вже існує в системі');
+                }
+                elseif($user = $model->checkUser(User::STATUS_NOT_AUTHORIZED)){
+
+                    $user->attributes = $_POST['CustomUser'];
+                    $user->save();
+                    $m = new Mail();
+                    $message = $m->createMessage($user, 'registration');
+                    Mailer::_createMailToHtml($message);
+                    $this->redirect(Yii::app()->createUrl('/moderator/afterregistration'));
                 }
                 else{
                     $model->save(false);
                     $m = new Mail();
                     $message = $m->createMessage($model, 'registration');
+
                     Mailer::_createMailToHtml($message);
                     $this->redirect(Yii::app()->createUrl('/moderator/afterregistration'));
                 }

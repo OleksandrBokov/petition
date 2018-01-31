@@ -18,6 +18,10 @@ class ModeratorLoginForm extends CFormModel
      * @var UserIdentity
      */
     private $_identity;
+    /**
+     * @var UserIdentity
+     */
+    public $ip;
 
     /**
      * @return array
@@ -32,7 +36,16 @@ class ModeratorLoginForm extends CFormModel
             array('rememberMe', 'boolean'),
             // password needs to be authenticated
             array('password', 'authenticate'),
+            array('ip', 'checkIp'),
         );
+    }
+
+    public function checkIp($attribute,$params){
+        if(strripos(Yii::app()->config->get('ipAccess'),$_SERVER['REMOTE_ADDR']) === false){
+            $this->addError($attribute, 'Ваш ip не дозволяє авторизуватися '.$this->$attribute);
+        }else{
+            return true;
+        }
     }
 
     /**
